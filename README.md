@@ -109,3 +109,49 @@ list.map((value, index, array) => {
 ##### key属性
 リスト配下の項目には`key`属性を付けておくことで特定の項目が追加・削除されたときにリスト全体が再生成されるのを防ぐことができる。（そのループの中で一意であればよい）
 
+#### `||` `&&`
+- `{condition && <Component />}`: 条件が真のときだけ `<Component />` を表示する
+- `{condition || <Component />}`: 条件が偽のときだけ `<Component />` を表示する
+
+### 3-3
+#### children
+コンポーネントの開始タグと終了タグの間に挟まれた内容を表す特別なProps
+```tsx
+<Component>
+    <p>子要素</p>
+</Component>
+```
+上記のような呼び出しをしたとき、`Component` 内で`props.children` を参照することで `<p>子要素</p>` を取得できる。
+- `props.children` は配列であることもあるため、単一の要素を想定している場合は注意が必要。
+- `props.children` は任意の値を取ることができるため、関数を渡すこともできる。
+```tsx
+<Component>
+    {(elem) => (
+        <p>{elem}</p>
+    )}
+</Component>
+```
+上記のような呼び出しをしたとき、`Component` 内で`props.children('Hello')` を呼び出すと `<p>Hello</p>` を取得できる。
+
+#### Stateについて
+子のコンポーネントから親のコンポーネントの状態を更新したいときは、親のコンポーネントにおけるStateの更新関数を子のコンポーネントに渡すことで実現できる。
+```tsx
+function Parent() {
+    const [count, setCount] = useState(0);
+    const updateCount = () => setCount(count + 1);
+
+    return (
+        <Child updateCount={updateCount} />
+    );
+}
+```
+
+このとき直接 `setCount` を渡すこともできる。
+
+- 親が `setCount` を `updateCount` にラップして渡す場合
+    - 更新のルールは親が管理する
+- 親が `setCount` を直接渡す場合
+    - 更新のルールは子が管理する
+        - `setCount(count+1)` とすることも `setCount(100)` とすることもできる
+
+基本的には子には最低限の権限・情報しか渡さない方が綺麗な設計とされている。

@@ -1,20 +1,18 @@
 import { Fragment } from "react/jsx-runtime";
+import Download from "./Download";
+import icon from './../../../assets/hero.png'; // ちょうどいい感じのアイコン画像がないので適当に
 
 interface Item {
     item: string;
     price: number;
     sell: boolean;
-
-    // constructor(item: string, price: number) {
-    //     this.item = item;
-    //     this.price = price;
-    // }
 }
 
-import icon from '../../assets/icon.png';
+
 // function Icon(item: Item) {
 // <Item item={hoge} /> のように呼び出すと、{ item: hoge } という形で渡されため、
 // 引数は { item }: { item: Item } という形で受け取る必要がある。
+
 function Icon({ item }: { item: Item }) {
     return (
         <img src={icon} alt={item.item} />
@@ -30,13 +28,22 @@ function ForItem({ item, index }: { item: Item, index: number }) {
             </dt>
             <dd>
                 This is the description of {item.item}.
-                {item.sell && <Icon item={item} />}
+                {item.sell && <Icon item={item} />} 
+                {/* ↑trueなら実行 */}
+                {item.sell && <Download />}
                 {item.sell || <p>Not for sale</p>}
+                {/* ↑falseなら実行 */}
             </dd>
-        </Fragment>
+        </Fragment >
     );
 }
 
+export let items: Item[] = [
+    { item: 'Item A', price: 50, sell: true },
+    { item: 'Item B', price: 150, sell: false },
+    { item: 'Item C', price: 30, sell: true },
+    { item: 'Item D', price: 200, sell: false },
+];
 
 export default function ForList({ src }: { src: Item[] }) {
     // {...} 以下の配列はそのまま順番に並べて表示される

@@ -1,10 +1,6 @@
 import type { ReactElement } from 'react';
 
-type Props = {
-    children: ReactElement[]; // 1つ以上のReact要素を受け取る
-};
-
-export default function StyledPanel({ children }: Props) {
+export default function StyledPanel({ children }: {children: ReactElement[]}) {
     return (
         <div
             style={{

@@ -19,3 +19,6 @@ export default function ListTemplate({ messages, children }: Props) {
         </dl>
     )
 }
+
+// ListTemplate の呼び出し元の配下の子要素を「テンプレートを返す関数」とする。
+// children ではなく　Props の属性としてもOK
