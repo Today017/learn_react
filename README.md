@@ -1,75 +1,111 @@
-# React + TypeScript + Vite
+# learn_react
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 1
+## 1-1
+- JavaScript: HTML/CSS で単一ページの情報を受け取り、サーバーとの間で非同期にデータの取得や更新があった際に差分だけ JS で処理する。
+- ライブラリ vs フレームワーク
+	- ライブラリ: ユーザーコードから呼び出されることを想定する。
+	- フレームワーク: ユーザーコードはフレームワークによって呼び出される。フレームワークがアプリのライフサイクルを管理する。
 
-Currently, two official plugins are available:
+## 1-2
+- Vite: React アプリを開発するためのコマンドラインツール。トランスパイラー、バンドラー、開発サーバーなどの機能を備える
+- Node.js: JavaScript の実行環境。ブラウザから JavaScript 実行エンジンだけを切り切り出したもの。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 1-3
+#### アロー関数
+`(引数) => {処理}` の形で関数オブジェクトを記述できる記法。引数が一つのときは `引数 => {処理}`、さらに返り値が1行で書ける場合は `引数 => 返り値` の形でも書けるの注意。
+#### `?`
+値が `undefined / null` であるかを判定し、そうでない場合のみだけ実際に処理を行う、ということを表す。
+#### `Promise<RetType>`
+非同期処理を管理するためのオブジェクト。`then` メソッドで実際の中身の値に処理を行える。
+```ts
+fetch(url)
+	.then(response => response.text())
+	.then(text => console.log(text))
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+`async / await` を使って次のようにも記述できる。
+```ts
+async function fetchData() {
+	const response = await fetch(url);
+	if (!response) throw new Error(response.statusText);
+	const text = await response.text();
+	console.log(text);
+}
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+fetchData();
 ```
+
+## 2
+### 2-1
+```bash
+npm create vite@latest #Viteを使ってプロジェクト作成。
+cd hoge
+npm install #ライブラリをインストール
+npm run dev #アプリを実行する
+```
+
+`package.json` で使えるコマンドが指定されている。
+`main.tsx` がエントリーポイント。
+
+```tsx
+createRoot(container[, options])
+```
+`container`: Reactアプリの埋め込み先
+`.render()` メソッドで `<App>` を呼び出している。`<StrictMode>` で `<App>` 要素をくくることで、ReactアプリをStrictモードで実行できる。Strictモードでは良くないコードを検出してくれる。
+### 2-2 JSX
+Reactではテンプレートを表すためにJSXを利用する。（見た目はタグ文字列だが実態は `ReactElement` 型のオブジェクト（React要素）
+React要素を返す関数によってUIの部品を表す。
+
+#### JSXの注意点
+- 唯一のルート要素を持つ
+	- 複数ある場合は `<></>` または `<Fragment></Fragment>` で囲む
+- `{...}` でJSXにJS式を埋め込める
+```ts
+<p>Hello, {name}</p>
+```
+- `{...}`で属性値を設定できる
+- 実行の際にはJS本来の関数である `createElement` メソッドに変換される。
+```ts
+createElement(tag [, props, [, ...childlren]])
+// tag: タグ名 div, p など
+// props: 属性 img/src, img/alt など
+// children: 子要素からなる配列
+```
+## 3
+### 3-1
+#### Props
+親から子どものコンポーネントに値を渡すための窓口
+#### State
+そのコンポーネント内で変化する値を管理するための仕組み
+```tsx
+const [state, setState] = useState(initialState);
+```
+state: State値を格納する変数
+setState: State値を更新する関数
+- state値を更新するときはsetStateを使わないとうまくいかない
+- Reactでは以下のタイミングでコンポーネントが再実行・再描画される
+	- Stateが更新された場合
+	- 渡されたPropsが変更された場合
+	- 親コンポーネントが再描画された場合
+> PropsからStateへの複製は気をつけること
+> Propsは先祖のコンポーネントから任意のタイミングで変更される可能性がある一方、Stateが初期化されるのは初回の描画タイミングのみのため。
+>
+> ついでにいうと、Propsはそもそも変更しないこと
+
+##### イベント
+- イベントハンドラ: イベントによって呼び出されるコード（関数）
+- Reactのコンポーネントは基本的に純粋関数（副作用なし・同じ引数なら同じ戻り値）であるべき
+	- 純粋でない操作はイベントハンドラに集約させる
+
+### 3-2
+#### mapメソッド
+```tsx
+list.map((value, index, array) => {
+	statements...
+})
+```
+個々の要素を順にコールバック関数で加工し、最終的にできた新しい配列を返す。
+##### key属性
+リスト配下の項目には`key`属性を付けておくことで特定の項目が追加・削除されたときにリスト全体が再生成されるのを防ぐことができる。（そのループの中で一意であればよい）
+
