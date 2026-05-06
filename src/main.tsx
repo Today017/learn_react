@@ -9,10 +9,34 @@ import TitledPanel from './code/3/3-3/3-3-2/TitledPanel.tsx'
 import ListTemplate from './code/3/3-3/3-3-3/ListTemplate.tsx'
 import StateBasic from './code/3/3-3/3-3-4/StateBasic.tsx'
 import StateParent from './code/3/3-3/3-3-5/StateParent.tsx'
+import EventMouse from './code/3/3-4/3-4-1/EventMouse.tsx'
+import EventObj from './code/3/3-4/3-4-2/EventObj.tsx'
+import EventPoint from './code/3/3-4/3-4-2/EventPoint.tsx'
+import EventKey from './code/3/3-4/3-4-2/EventKey.tsx'
+import EventArgs from './code/3/3-4/3-4-2/EventArgs.tsx'
+import EventPropagation from './code/3/3-4/3-4-3/EventPropagation.tsx'
+import EventOnce from './code/3/3-4/3-4-4/EventOnce.tsx'
+import EventPassive from './code/3/3-4/3-4-4/EventPassive.tsx'
 
 const root = createRoot(document.getElementById('root')!)
 root.render(
     <>
+        <EventPassive />
+
+        <EventOnce />
+
+        <EventPropagation />
+
+        <EventArgs />
+
+        <EventKey />
+
+        <EventObj />
+
+        <EventPoint />
+
+        <EventMouse defaultMessage="Mouse is here!" afterMessage="Mouse is gone!" />
+
         <StateParent />
 
         <StyledPanel>
