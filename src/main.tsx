@@ -21,10 +21,28 @@ import './index.css'
 import StateForm from './code/4/4-1/4-1-1/StateForm'
 import StateFormUC from './code/4/4-1/4-1-3/StateFormUC'
 import FormTextarea from './code/4/4-1/4-1-4/FormTextarea'
+import FormSelect from './code/4/4-1/4-1-4/FormSelect'
+import FormList from './code/4/4-1/4-1-4/FormList'
+import FormRadio from './code/4/4-1/4-1-4/FormRadio'
+import FormCheck from './code/4/4-1/4-1-4/FormCheck'
+import FormCheckMulti from './code/4/4-1/4-1-4/FormCheckMulti'
+import FormFile from './code/4/4-1/4-1-4/FormFile'
 
 const root = createRoot(document.getElementById('root')!)
 root.render(
     <>
+        <FormFile />
+
+        <FormCheckMulti />
+
+        <FormCheck />
+
+        <FormRadio />
+
+        <FormList />
+
+        <FormSelect />
+
         <FormTextarea />
 
         <StateForm />
