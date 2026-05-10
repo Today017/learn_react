@@ -28,20 +28,16 @@ import './index.css'
 // import FormCheckMulti from './code/4/4-1/4-1-4/FormCheckMulti'
 // import FormFile from './code/4/4-1/4-1-4/FormFile'
 
-import StateNest from './code/4/4-2/4-2-1/StateNest'
-import StateNestImmer from './code/4/4-2/4-2-1/StateNestImmer'
-import StateNestImmer2 from './code/4/4-2/4-2-1/StateNestImmer2'
-import StateTodo from './code/4/4-2/4-2-3/StateTodo'
+// import StateNest from './code/4/4-2/4-2-1/StateNest'
+// import StateNestImmer from './code/4/4-2/4-2-1/StateNestImmer'
+// import StateNestImmer2 from './code/4/4-2/4-2-1/StateNestImmer2'
+// import StateTodo from './code/4/4-2/4-2-3/StateTodo'
+
+import FormBasic from './code/4/4-3/4-3-1/FormBasic'
 
 const root = createRoot(document.getElementById('root')!)
 root.render(
     <>
-        <StateTodo />
-
-        <StateNest />
-
-        <StateNestImmer />
-
-        <StateNestImmer2 />
+        <FormBasic />
     </>
 )
